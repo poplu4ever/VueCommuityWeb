@@ -1,10 +1,12 @@
 
 import axios from 'axios'
 import errorHandle from './errorHandle'
+const CancelToken = axios.CancelToken
 
 class HttpRequest {
   constructor (baseURL) {
     this.baseURL = baseURL
+    this.pending = {} // global variable to store request log
   }
 
   getInsideConfig () {
@@ -18,11 +20,23 @@ class HttpRequest {
     return config
   }
 
+  removePending (key, isRequest = false) {
+    if (this.pending[key] && isRequest) {
+      this.pending[key]('取消重复请求')
+    }
+    delete this.pending[key]
+  }
+
   Interceptors (instance) {
     // Add a request interceptor
     instance.interceptors.request.use(config => {
       // Do something before request is sent
-      console.log('config:' + config)
+      const key = config.url + '&' + config.method
+      console.log('KEYCHECK:' + key)
+      this.removePending(key, true)
+      config.cancelToken = new CancelToken((c) => {
+        this.pending[key] = c
+      })
       return config
     }, function (error) {
       // Do something with request error
@@ -34,6 +48,8 @@ class HttpRequest {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
       console.log('res is:' + res)
+      const key = res.config.url + '&' + res.config.method
+      this.removePending(key)
       if (res.status === 200) {
         return Promise.resolve(res.data)
       } else {

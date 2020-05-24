@@ -163,7 +163,7 @@ export default {
           this.$refs.codefield.setErrors([res.msg])
         }
       }).catch((err) => {
-        console.log(err)
+        console.log('err', err)
         if (err.code === 500) {
           this.$alert('用户名密码校验失败')
         } else {

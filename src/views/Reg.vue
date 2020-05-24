@@ -1,5 +1,5 @@
 <template>
-    <div class="layui-container fly-marginTop">
+  <div class="layui-container fly-marginTop">
   <div class="fly-panel fly-panel-user" pad20>
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title">
@@ -178,10 +178,13 @@ export default {
             this.$refs.observer.reset()
           })
           // router to login page
-          this.$router.push('/login')
+          this.$alert('Register Successfully')
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 1000)
           console.log(res)
         } else {
-          this.$refs.observer.setErrors([res.msg])
+          this.$refs.observer.setErrors(res.msg)
         }
       })
     }

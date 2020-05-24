@@ -10,15 +10,14 @@ const getList = (options) => {
 }
 
 /**
- *
- *
+ * Fetch tips data from server
  */
 const getTips = () => {
   return axios.get('/public/tips')
 }
 
 const getTop = () => {
-  return axios.get('/public/top')
+  return axios.get('/public/topWeek')
 }
 
 const getLinks = () => {
