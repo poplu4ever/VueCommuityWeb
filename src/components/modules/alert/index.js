@@ -24,7 +24,7 @@ Alert.install = (Vue) => {
     if (typeof success !== 'undefined') {
       instance.success = success
     }
-    if (typeof success !== 'undefined') {
+    if (typeof cancel !== 'undefined') {
       instance.cancel = cancel
     }
   }

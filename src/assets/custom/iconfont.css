@@ -1,0 +1,53 @@
+@font-face {font-family: "iconNeo";
+  src: url('iconfont.eot?t=1590503871898'); /* IE9 */
+  src: url('iconfont.eot?t=1590503871898#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),
+  url('iconfont.woff?t=1590503871898') format('woff'),
+  url('iconfont.ttf?t=1590503871898') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1590503871898#iconNeo') format('svg'); /* iOS 4.1- */
+}
+
+.iconNeo {
+  font-family: "iconNeo" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cc-message:before {
+  content: "\e674";
+}
+
+.icon-documentfull:before {
+  content: "\e70c";
+}
+
+.icon-settings:before {
+  content: "\e673";
+}
+
+.icon-home:before {
+  content: "\e612";
+}
+
+.icon-document:before {
+  content: "\e632";
+}
+
+.icon-message:before {
+  content: "\e73f";
+}
+
+.icon-user:before {
+  content: "\e606";
+}
+
+.icon-Settingscontroloptions:before {
+  content: "\e9cb";
+}
+
+.icon-product_s:before {
+  content: "\e800";
+}
+

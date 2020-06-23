@@ -1,6 +1,8 @@
 
 import axios from 'axios'
 import errorHandle from './errorHandle'
+import store from '@/store'
+import publicConfig from '@/config'
 const CancelToken = axios.CancelToken
 
 class HttpRequest {
@@ -30,6 +32,15 @@ class HttpRequest {
   Interceptors (instance) {
     // Add a request interceptor
     instance.interceptors.request.use(config => {
+      let isPublic = false
+      publicConfig.publicPath.map((path) => {
+        isPublic = isPublic || path.test(config.url)
+      })
+      const token = store.state.token
+      if (!isPublic && token) {
+        config.headers.Authorization = 'Bearer ' + token
+      }
+      console.log(config.header.authorization)
       // Do something before request is sent
       const key = config.url + '&' + config.method
       console.log('KEYCHECK:' + key)

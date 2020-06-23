@@ -152,13 +152,18 @@ export default {
       }).then((res) => {
         console.log(res)
         if (res.code === 200) {
+          res.data.username = this.username
+          this.$store.commit('setUserInfo', res.data)
+          this.$store.commit('setIsLogin', true)
+          this.$store.commit('setToken', res.token)
           this.username = ''
           this.password = ''
           this.code = ''
           requestAnimationFrame(() => {
             this.$refs.observer.reset()
           })
-          console.log(res)
+          this.$router.push({ name: 'index' })
+          // console.log(res)
         } else if (res.code === 401) {
           this.$refs.codefield.setErrors([res.msg])
         }

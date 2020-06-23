@@ -16,16 +16,56 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   @import "assets/layui/css/layui.css";
   @import "assets/css/global.css";
   @import "assets/layui/css/modules/layer/default/layer.css";
 
-  .svg {
-    position: relative;
-    top: -4px;
+@for $i from 0 to 5 {
+  .pd#{$i} {
+    padding: $i * 10 + px
+    !important;
   }
-  .gray {
-    color: #999;
+  .pl#{$i} {
+    padding-left: $i * 10 + px
+    !important;
   }
+  .pr#{$i} {
+    padding-right: $i * 10 + px
+    !important;
+  }
+  .mr#{$i} {
+    margin-right: $i * 10 + px
+    !important;
+  }
+}
+
+.svg {
+  position: relative;
+  top: -4px;
+  }
+.gray {
+  color: #999;
+  }
+.orange {
+  color: #ff5722;
+}
+.text-centre {
+  text-align: center;
+}
+.pl0 {
+  padding-left: 0;
+}
+.pr0 {
+  padding-right: 0;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.pull-right {
+  float: right;
+}
 </style>
