@@ -11,7 +11,7 @@
     "@babel/runtime": "^7.6.2",
     "axios": "^0.19.2",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.25.3",
     "qs": "^6.9.4",
     "uuid": "^7.0.3",
