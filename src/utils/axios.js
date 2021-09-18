@@ -33,14 +33,16 @@ class HttpRequest {
     // Add a request interceptor
     instance.interceptors.request.use(config => {
       let isPublic = false
+      // check the whether the path require jwt authorization
       publicConfig.publicPath.map((path) => {
         isPublic = isPublic || path.test(config.url)
       })
       const token = store.state.token
       if (!isPublic && token) {
+        // if the path requires jwt auth, add the token in header while sending request
         config.headers.Authorization = 'Bearer ' + token
       }
-      console.log(config.header.authorization)
+      console.log('CHECK AUTH', config.headers.Authorization)
       // Do something before request is sent
       const key = config.url + '&' + config.method
       console.log('KEYCHECK:' + key)

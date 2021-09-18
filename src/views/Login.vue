@@ -50,24 +50,24 @@
               <div class="layui-form-item">
                 <validation-provider ref="codefield" rules="required|length:4" v-slot="{errors}">
                 <div class="layui-row">
-                <label for="L_vercode" class="layui-form-label">验证码</label>
-                  <div class="layui-input-inline">
-                  <input
-                    type="text"
-                    name="验证码"
-                    v-model="code"
-                    placeholder="请输入验证码"
-                    autocomplete="off"
-                    class="layui-input">
-                </div>
-                <div class="layui-form-mid">
-                  <span
-                    class='svg'
-                    style="color: #c00;"
-                    v-html="svg"
-                    @click="_getCode()">
-                  </span>
-                </div>
+                  <label for="L_vercode" class="layui-form-label">验证码</label>
+                    <div class="layui-input-inline">
+                    <input
+                      type="text"
+                      name="验证码"
+                      v-model="code"
+                      placeholder="请输入验证码"
+                      autocomplete="off"
+                      class="layui-input">
+                  </div>
+                  <div class="layui-form-mid">
+                    <span
+                      class='svg'
+                      style="color: #c00;"
+                      v-html="svg"
+                      @click="_getCode()">
+                    </span>
+                  </div>
                 </div>
                 <div class="layui-form-mid">
                   <span
@@ -169,7 +169,7 @@ export default {
         }
       }).catch((err) => {
         console.log('err', err)
-        if (err.code === 500) {
+        if (err.code === 404) {
           this.$alert('用户名密码校验失败')
         } else {
           this.$alert('服务器错误')

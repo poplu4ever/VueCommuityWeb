@@ -52,7 +52,7 @@
             </div>
               <div class="layui-form-item">
                 <validation-provider name="password" rules="required|min:6|max:16|confirmed:confirmation" v-slot="{errors}">
-                   <label for="L_pass" class="layui-form-label">密码</label>
+                  <label for="L_pass" class="layui-form-label">密码</label>
                   <div class="layui-input-inline">
                   <input
                     type="password"
@@ -81,7 +81,7 @@
                    </div>
                    <div class="layui-form-mid">
                     <span style="color: #c00;">{{errors[0]}}</span>
-                </div>
+                   </div>
                 </validation-provider>
               </div>
               <div class="layui-form-item">

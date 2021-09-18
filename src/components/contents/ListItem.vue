@@ -9,10 +9,10 @@
               </a>
               <h2>
                 <a class="layui-badge">{{item.catalog}}</a>
-                <a href="jie/detail.html">{{item.title}}</a>
+                <router-link :to="{name: 'detail', params: {tid: item._id}}">{{item.title}}</router-link>
               </h2>
               <div class="fly-list-info">
-                <a href="user/home.html" link>
+                <router-link :to="{name:'home', params:{ uid: item.uid._id }}" link>
                   <cite>{{item.uid.name}}</cite>
                   <!--
                   <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
@@ -21,7 +21,7 @@
                     v-if="item.uid.isVip !== '0'"
                     >{{'VIP' + item.uid.isVip}}
                   </i>
-                </a>
+                </router-link>
                 <span>{{item.created | moment}}</span>
 
                 <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i>{{item.fav}}</span>
@@ -31,7 +31,7 @@
                   {{item.answer}}
                 </span>
               </div>
-              <div class="fly-list-badge" v-show="item.tags.length>0">
+              <div class="fly-list-badge" v-show="item.tags.length>0 && item.tags[0].name !== ''">
                 <span
                   class="layui-badge layui-bg-red"
                   v-for="(tag,index) in item.tags"
@@ -54,7 +54,11 @@
 
 <script>
 import moment from 'moment'
+// import relativeTime from 'dayjs/plugin/relativeTime'
+// import 'dayjs/locale/zh-cn'
 import _ from 'lodash'
+
+// moment.extend(relativeTime)
 export default {
   name: 'listitem',
   props: {

@@ -27,6 +27,9 @@ const Password = () => import(/* webpackChunkName: 'password' */ '../components/
 const MyPost = () => import(/* webpackChunkName: 'myPost' */ '../components/user/common/MyPost.vue')
 const MyCollection = () => import(/* webpackChunkName: 'myCollection' */ '../components/user/common/MyCollection.vue')
 const NoFound = () => import(/* webpackChunkName: 'nofound' */ '../views/NoFound.vue')
+const Add = () => import(/* webpackChunkName: 'add' */ '../components/contents/Add.vue')
+const Detail = () => import(/* webpackChunkName: 'detail' */ '../components/contents/Detail.vue')
+const Edit = () => import(/* webpackChunkName: 'edit' */ '../components/contents/Edit.vue')
 
 Vue.use(VueRouter)
 
@@ -69,6 +72,42 @@ const routes = [
     path: '/forget',
     name: 'forget',
     component: Forget
+  },
+  {
+    path: '/add',
+    name: 'add',
+    component: Add,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/edit/:tid',
+    props: true,
+    name: 'edit',
+    component: Edit,
+    meta: { requiresAuth: true },
+    beforeEnter (to, from, next) {
+      if (['detail', 'mypost'].indexOf(from.name) !== -1 && to.params.page && to.params.page.isEnd === '0') {
+        next()
+      } else {
+        const editData = localStorage.getItem('editData')
+        if (editData && editData !== '') {
+          const editObj = JSON.parse(editData)
+          if (editObj.isEnd === '0') {
+            next()
+          } else {
+            next('/')
+          }
+        } else {
+          next('/')
+        }
+      }
+    }
+  },
+  {
+    path: '/detail/:tid',
+    name: 'detail',
+    props: true,
+    component: Detail
   },
   {
     path: '/user/:uid',
@@ -143,6 +182,7 @@ const routes = [
   },
   {
     path: '/404',
+    name: '404',
     component: NoFound
   },
   {
@@ -165,6 +205,11 @@ router.beforeEach((to, from, next) => {
       store.commit('setToken', token)
       store.commit('setUserInfo', userInfo)
       store.commit('setIsLogin', true)
+      if (!store.state.ws) {
+        store.commit('initWebSocket', {})
+      }
+    } else {
+      localStorage.clear()
     }
   }
 

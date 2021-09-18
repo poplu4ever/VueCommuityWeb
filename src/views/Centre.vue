@@ -3,7 +3,7 @@
       <ul class="layui-nav layui-nav-tree" lay-filter="test">
 <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
         <li class="layui-nav-item" v-for="(item,index) in lists" :key="'centre'+index">
-            <router-link :to="{name: item.link}" :active-class="item.activeClass">
+            <router-link :to="{ name: item.link, params: { uid: userInfo._id} }" :active-class="item.activeClass">
                 <i class="iconNeo" :class="item.icon"></i>
                 {{item.name}}
             </router-link>
@@ -53,6 +53,11 @@ export default {
           link: 'other'
         }
       ]
+    }
+  },
+  computed: {
+    userInfo () {
+      return this.$store.state.userInfo
     }
   }
 }

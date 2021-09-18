@@ -6,8 +6,8 @@
           <div class="panel border">
             <div class="title">会员信息</div>
             <div class="content">
-                <p>你的积分有：60</p>
-                <p>你当前为非vip</p>
+                <p>你的积分有：{{userInfo.favs}}</p>
+                <p>{{userInfo.isVip === '0' ? '非VIP' : 'VIP' + userInfo.isVip}}</p>
             </div>
           </div>
         </div>
@@ -53,11 +53,35 @@
 </template>
 
 <script>
+import { getInfo } from '@/api/user'
 import Sign from '@/components/sidebar/Sign.vue'
 export default {
   name: 'user-centre',
   components: {
     sign: Sign
+  },
+  data () {
+    return {
+      favs: 0
+    }
+  },
+  computed: {
+    userInfo () {
+      return this.$store.state.userInfo
+    }
+  },
+  mounted () {
+    // this.favs = this.$store.state.userInfo.favs
+    this.getUserInfo()
+  },
+  methods: {
+    getUserInfo () {
+      getInfo({ uid: this.userInfo._id }).then((res) => {
+        if (res.code === 200) {
+          this.$store.commit('setUserInfo', res.data)
+        }
+      })
+    }
   }
 }
 </script>

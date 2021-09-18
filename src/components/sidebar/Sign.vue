@@ -47,6 +47,8 @@ export default {
     )
   },
   mounted () {
+    // check user last sign time and sign status
+    // if the gap between last sign time and today is more than one day, user is allowed to sign again
     const isSign = this.$store.state.userInfo.isSign
     const lastSign = this.$store.state.userInfo.lastSign
     const nowDate = moment().format('YYYY-MM-DD')
@@ -58,7 +60,20 @@ export default {
       this.isSign = isSign
     }
   },
+  watch: {
+    userInfo (newval, oldval) {
+      if (newval.isSign === true) {
+        // this.nextSign()
+        this.isSign = true
+      } else {
+        this.isSign = false
+      }
+    }
+  },
   computed: {
+    userInfo () {
+      return this.$store.state.userInfo
+    },
     isLogin () {
       return this.$store.state.isLogin
     },

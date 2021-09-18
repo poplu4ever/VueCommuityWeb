@@ -42,12 +42,12 @@
                 <div class="layui-input-inline custom1">
                   <label for="gender1" class="custom2">
                     <input id="gender1" v-model="gender" type="radio" name="sex" value="0" title="男">
-                    <i class="layui-icon layui-icon-circle" :class="{'layui-icon-radio': gedner === '0'}"></i>
+                    <i class="layui-icon layui-icon-circle" :class="{'layui-icon-radio': gender === '0'}"></i>
                     男
                   </label>
                   <label for="gender2">
                     <input id="gender2" v-model="gender" type="radio" name="sex" value="1" title="女">
-                    <i class="layui-icon layui-icon-circle" :class="{'layui-icon-radio': gedner === '1'}"></i>
+                    <i class="layui-icon layui-icon-circle" :class="{'layui-icon-radio': gender === '1'}"></i>
                     女
                   </label>
                 </div>
