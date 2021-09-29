@@ -18,17 +18,17 @@
           <span class="layui-badge" style="background-color: #5FB878;" v-else>已结</span>
 
           <span class="layui-badge layui-bg-black" v-show="page.isTop === '1'">置顶</span>
-          <span class="layui-badge layui-bg-red" v-for="(tag, index) in page.tags" :key="'tags' + index">{{tag.name}}</span>
+          <span class="layui-badge layui-bg-red" v-for="(tag, index) in page.tags" :key="'tags' + index">{{tag}}</span>
 
           <div v-hasRole="'super_admin'">
             <div class="fly-admin-box" data-id="123">
-            <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+              <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
 
-            <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
-            <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span>
+              <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
+              <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span>
 
-            <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
-            <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span>
+              <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
+              <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span>
            </div>
           </div>
 
@@ -79,9 +79,9 @@
               </a>
               <div class="fly-detail-user">
                 <router-link :to="{name:'home', params:{uid: item.cuid._id}}" class="fly-link">
-                  <cite>{{item.cuid && item.cuid.isVip !== '0' ? item.cuid.name : '克劳德'}}</cite>
+                  <cite>{{item.cuid? item.cuid.name :'克劳德'}}</cite>
                   <!-- <i class="iconfont icon-renzheng" title="认证信息：XXX"></i> -->
-                  <i v-if="item.cuid ? item.cuid.isVip : false" class="layui-badge fly-badge-vip">VIP{{item.cuid.isVip}}</i>
+                  <i v-if="item.cuid && item.cuid.isVip !== '0' ? item.cuid.isVip : false" class="layui-badge fly-badge-vip">VIP{{item.cuid.isVip}}</i>
                 </router-link>
 
                 <span v-if="index === 0 ">(楼主)</span>
@@ -93,7 +93,7 @@
               </div>
 
               <div class="detail-hits">
-                <span>{{item.created | moment}}</span>
+                <span>{{item.created}}</span>
               </div>
 
               <i class="iconfont icon-caina" title="最佳答案" v-show="item.isBest === '1'"></i>
@@ -181,7 +181,7 @@
                             <div class="layui-input-inline">
                                 <input
                                 type="text"
-                                name="验证码"
+                                name="code"
                                 v-model="code"
                                 placeholder="请输入验证码"
                                 autocomplete="off"
@@ -205,7 +205,6 @@
                     </validation-provider>
                 </div>
                 <div class="layui-form-item">
-                    <input type="hidden" name="jid" value="123">
                     <button class="layui-btn" @click="validate().then(submit)">提交回复</button>
                 </div>
             </validation-observer>
@@ -215,9 +214,7 @@
     </div>
     <div class="layui-col-md4">
       <hotlist-temp></hotlist-temp>
-
       <ads-temp></ads-temp>
-
       <links-temp></links-temp>
     </div>
    </div>
@@ -237,7 +234,7 @@ import Pagenation from '@/components/modules/page/index'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { escapeHtml } from '@/utils/escapeHtml'
 import { getCode } from '@/api/login'
-import uuid from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid'
 import { scrollToElem } from '@/utils/common'
 
 export default {
@@ -277,7 +274,7 @@ export default {
     if (localStorage.getItem('sid')) {
       sid = localStorage.getItem('sid')
     } else {
-      sid = uuid()
+      sid = uuidv4()
       localStorage.setItem('sid', sid)
     }
     this.$store.commit('setSid', sid)
@@ -353,7 +350,6 @@ export default {
         name: user.name,
         isVip: user.isVip
       }
-
       if (typeof this.editInfo.cid !== 'undefined' && this.editInfo.cid !== '') {
         const obj = { ...this.editInfo }
         delete obj.item
@@ -374,6 +370,7 @@ export default {
             this.comments.splice(this.comments.indexOf(this.editInfo.item), 1, temp)
           }
         })
+        return
       }
 
       addComment(this.editInfo).then(res => {
@@ -387,6 +384,7 @@ export default {
           requestAnimationFrame(() => {
             this.$refs.observer && this.$refs.observer.reset()
           })
+          this._getCode()
         } else {
           this.$alert(res.msg)
         }
@@ -486,9 +484,14 @@ export default {
  }
  .fly-detail-info {
     span {
-        margin-right: 5px;
+      margin-right: 5px;
     }
  }
+ .fly-admin-box {
+  margin-left: 0;
+  margin-top: 15px;
+}
+
  .jieda-body {
    margin: 25px 0 20px !important
  }

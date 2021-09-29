@@ -23,6 +23,10 @@ export default {
       if (res.code === 200) {
         this.lists = res.data
       }
+    }).catch(err => {
+      if (err) {
+        this.$alert(err.message)
+      }
     })
   }
 }

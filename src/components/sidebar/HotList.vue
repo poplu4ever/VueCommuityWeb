@@ -1,17 +1,17 @@
 <template>
   <div>
-      <dl class="fly-panel fly-list-one">
-        <dt class="fly-panel-title">本周热议</dt>
-        <dd v-for="(item,index) in lists" :key="'hotlist' + index" >
-          <a href="jie/detail.html">{{item.title}}</a>
-          <span><i class="iconfont icon-pinglun1"></i>{{item.answer}}</span>
-        </dd>
+    <dl class="fly-panel fly-list-one">
+      <dt class="fly-panel-title">本周热议</dt>
+      <dd v-for="(item, index) in lists" :key="'hotlist' + index">
+        <a href="jie/detail.html">{{ item.title }}</a>
+        <span><i class="iconfont icon-pinglun1"></i>{{ item.answer }}</span>
+      </dd>
 
-        <!-- 无数据时 -->
-        <!--
+      <!-- 无数据时 -->
+      <!--
         <div class="fly-none">没有相关数据</div>
         -->
-      </dl>
+    </dl>
   </div>
 </template>
 
@@ -25,15 +25,20 @@ export default {
     }
   },
   mounted () {
-    getTop().then((res) => {
-      if (res.code === 200) {
-        this.lists = res.data
-      }
-    })
+    getTop()
+      .then((res) => {
+        if (res.code === 200) {
+          this.lists = res.data
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          this.$alert(err.message)
+        }
+      })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-      <div class="fly-panel">
+      <div class="fly-panel" v-show="lists.length > 0">
             <div class="fly-panel-title fly-filter">
               <a>置顶</a>
               <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
@@ -19,7 +19,7 @@ export default {
       lists: [
         {
           uid: {
-            name: 'neo',
+            name: 'Tester',
             isVip: 1
           },
           title: '大前端课程',
@@ -32,14 +32,16 @@ export default {
           answer: 0,
           status: 0,
           isTop: 0,
-          tags: [{
-            name: '精华',
-            class: 'layui-bg-red'
-          },
-          {
-            name: '热门',
-            class: 'layui-bg-blue'
-          }]
+          tags: [
+            // {
+            //   name: '精华',
+            //   class: 'layui-bg-red'
+            // },
+            // {
+            //   name: '热门',
+            //   class: 'layui-bg-blue'
+            // }
+          ]
         }
       ]
     }
